@@ -11,7 +11,8 @@ public class InteractionObject : MonoBehaviour
         nothing,
         info,
         pickup,
-        dialogue
+        dialogue,
+        pickupinfo
     }
 
     [Header("Type of Interactable")]
@@ -25,9 +26,11 @@ public class InteractionObject : MonoBehaviour
     [TextArea]
     public string[] sentences;
 
+
     public void Start()
     {
         infoText = GameObject.Find("InfoText").GetComponent<TMP_Text>();
+
     }
 
     public void Nothing()
@@ -48,7 +51,7 @@ public class InteractionObject : MonoBehaviour
 
     public void Dialogue()
     {
-
+        FindObjectOfType<DialogueManager>().StartDialogue(sentences);
     }
 
     IEnumerator ShowInfo(string message, float delay)
@@ -56,5 +59,11 @@ public class InteractionObject : MonoBehaviour
         infoText.text = message;
         yield return new WaitForSeconds(delay);
         infoText.text = null;
+    }
+
+    public void PickUpInfo()
+    {
+        StartCoroutine(ShowInfo(infoMessage, 2.5f));
+        this.gameObject.SetActive(false);
     }
 }

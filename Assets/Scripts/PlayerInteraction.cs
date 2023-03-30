@@ -10,11 +10,13 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField]
     private InteractionObject currentInterObjScript = null;
 
+
     void Update()
     {
         if (Input.GetKey(KeyCode.Space) && currentInterObj == true)
         {
             CheckInteraction();
+
         }
     }
 
@@ -31,6 +33,9 @@ public class PlayerInteraction : MonoBehaviour
 
         else if (currentInterObjScript.interType == InteractionObject.InteractableType.dialogue)
         { currentInterObjScript.Dialogue(); }
+
+        else if (currentInterObjScript.interType == InteractionObject.InteractableType.pickupinfo)
+        { currentInterObjScript.PickUpInfo(); }
     }
 
     private void OnTriggerStay2D(Collider2D other)
